@@ -13,6 +13,7 @@ from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import JWTManager
 import datetime
+from flask_bcrypt import Bcrypt
 
 #from models import Person
 
@@ -34,7 +35,9 @@ else:
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 MIGRATE = Migrate(app, db, compare_type = True)
+bcrypt =Bcrypt(app)
 db.init_app(app)
+   
 
 # Allow CORS requests to this API
 CORS(app)

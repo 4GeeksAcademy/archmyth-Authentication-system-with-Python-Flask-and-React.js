@@ -77,11 +77,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 			}
 		},
 
-		logOut: () => {
-			setStore({ token: null, user: null, rol: null, idUser: null, idAgencia: null, idViajero: null });
-			sessionStorage.removeItem('token');
-			sessionStorage.removeItem('user');
-			sessionStorage.removeItem('idUser');
+		logout: () => {
+			setStore({
+				token: "",
+				user: {},
+				posts: [],
+				userPosts: [],
+			});
+			localStorage.removeItem("token");
+			localStorage.removeItem("user");
 		},
 
 		newUser: async (user) => {
@@ -89,6 +93,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			console.log(user);
 			const respUser = await fetch(process.env.BACKEND_URL + "/api/signup", {
 				method: "POST",
+				mode: "cors",
 				headers: {
 					"Content-Type": "application/json",
 				},
