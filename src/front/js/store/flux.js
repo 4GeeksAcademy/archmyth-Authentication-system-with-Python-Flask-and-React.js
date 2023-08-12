@@ -62,10 +62,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log(resp.status);
 				if (resp.status != 200) return false;
 				console.log(data);
-				sessionStorage.setItem('token', data.token);
+				sessionStorage.setItem('token', data.access_token);
 				sessionStorage.setItem('user', data.user);
 				sessionStorage.setItem('idUser', data.idUser);
-				setStore({ token: data.token, user: data.user, idUser: data.idUser });
+				setStore({ token: data.access_token, user: data.user, idUser: data.idUser });
 				// don't forget to return something, that is how the async resolves
 				return true;
 			} catch (error) {
