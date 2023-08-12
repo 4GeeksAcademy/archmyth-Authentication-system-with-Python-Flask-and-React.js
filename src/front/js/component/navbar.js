@@ -1,9 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
+  const [isLogin, setIsLogin] = useState(false);
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    actions.logout();
+    setIsLogin(false);
+  };
+
+  useLayoutEffect(() => {
+    // Update isLogin based on store.token
+    setIsLogin(store.token && store.token !== "" && store.token !== undefined);
+  }, [store.token]);
 
   return (
     <nav className="navbar navbar-light bg-light">
@@ -13,18 +25,17 @@ export const Navbar = () => {
         </Link>
         <div className="ml-auto">
           {!store.token ? (
-            <>
-              <Link to="/login">
-                <button className="btn btn-primary">Log in</button>
-              </Link>
-              <Link to="/signup">
-                <button className="btn btn-primary ml-2">Sign up</button>
-              </Link>
-            </>
-          ) : (
-            <button onClick={() => actions.logout()} className="btn btn-primary">
+
+            <Link to="/login">
+              <button className="btn btn-primary">Log in</button>
+            </Link>
+
+
+          ) : (<Link to="/">
+            <button onClick={handleLogout} className="btn btn-primary">
               Log out
             </button>
+          </Link>
           )}
         </div>
       </div>

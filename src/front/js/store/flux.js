@@ -77,16 +77,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 			}
 		},
 
-		logout: () => {
-			setStore({
-				token: "",
-				user: {},
-				posts: [],
-				userPosts: [],
-			});
-			localStorage.removeItem("token");
-			localStorage.removeItem("user");
-		},
+		  logout: () => {
+			  sessionStorage.removeItem('token');
+			  sessionStorage.removeItem('user');
+			  setStore({
+				  token: null,
+				  user: null,
+			  });
+		  },
 
 		newUser: async (user) => {
 			let data = "";
